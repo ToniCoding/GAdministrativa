@@ -1,0 +1,73 @@
+Table employees {
+  id integer [pk, not null]
+  name VARCHAR(150) [not null]
+  surname VARCHAR(250) [not null]
+  join_date timestamp [default: `now()`, not null]
+  end_date timestamp [default: null]
+  department_id integer [not null]
+}
+
+Table payrolls {
+  id integer [pk, not null]
+  employee_id integer [not null]
+  satisfied_date timestamp [not null]
+  payroll_month date [not null]
+  payroll_amount integer [not null]
+  role_id integer [not null]
+}
+
+Table promotions {
+  id integer [pk, not null]
+  employee_id integer [not null]
+  promotion_date date [not null]
+  previous_charge_id integer [not null]
+  next_charge_id integer [not null]
+  active_promotion bool [not null]
+}
+
+Table roles {
+  role_id integer [pk, not null]
+}
+
+Table employee_roles {
+  employee_id integer [not null]
+  role_id integer [not null]
+}
+
+Table departments {
+  id integer [pk, not null]
+  name VARCHAR(255) [not null]
+  client_id integer [not null]
+  assigned_project VARCHAR(255) [not null]
+}
+
+Table clients {
+  id integer [pk, not null]
+  name VARCHAR(255) [not null]
+}
+
+Table attendance {
+  id integer [pk, not null]
+  employee_id integer [not null]
+  work_day DATE [not null]
+  start_time timestamp [default: `now()`]
+  leave_time timestamp [not null]
+  work_hours integer [not null]
+}
+
+Ref: employees.id > payrolls.employee_id
+Ref: employees.department_id > departments.id
+
+Ref: payrolls.role_id - roles.role_id
+
+Ref: promotions.previous_charge_id > roles.role_id
+
+Ref: employee_roles.employee_id > employees.id
+Ref: employee_roles.role_id > roles.role_id
+
+Ref: promotions.next_charge_id > roles.role_id
+Ref: promotions.employee_id > employees.id
+
+Ref: departments.client_id - clients.id
+
+Ref: attendance.employee_id > employees.id
