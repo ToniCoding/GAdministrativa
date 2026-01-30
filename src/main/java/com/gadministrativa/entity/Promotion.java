@@ -3,10 +3,8 @@ package com.gadministrativa.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
-import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.time.Instant;
 import java.time.LocalDate;
 
 @Entity
@@ -16,29 +14,29 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Attendance {
+public class Promotion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
     @JoinColumn(name = "employee_id")
     @NotNull
+    @ManyToOne(optional = false)
     private Employee employee;
 
-    @Column
-    @NotNull
-    @CreatedDate
-    private LocalDate workDay;
-
-    @Column(nullable = false, updatable = false)
-    @CreatedDate
-    @NotNull
-    private Instant startTime;
-
-    @Column(columnDefinition = "DATETIME")
-    private Instant leaveTime;
-
     @Column(nullable = false)
-    private int workHours = 0;
+    @NotNull
+    private LocalDate promotionDate;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "previous_charge_id")
+    private Role previousCharge;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "next_charge_id")
+    private Role nextCharge;
+
+    @Column(columnDefinition = "BOOL", nullable = false)
+    @NotNull
+    private boolean activePromotion = false;
 }
