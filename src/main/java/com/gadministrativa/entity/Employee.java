@@ -19,11 +19,11 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(columnDefinition = "VARCHAR(200)", nullable = false)
+    @Column(nullable = false)
     @NotNull
     private String name;
 
-    @Column(columnDefinition = "VARCHAR(250)", nullable = false)
+    @Column(nullable = false)
     @NotNull
     private String surname;
 
