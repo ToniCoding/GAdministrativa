@@ -1,2 +1,4 @@
-package com.gadministrativa.service;public class EmployeeService {
+package com.gadministrativa.service;
+
+public class EmployeeService {
 }

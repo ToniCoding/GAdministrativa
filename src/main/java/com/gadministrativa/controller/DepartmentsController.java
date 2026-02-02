@@ -1,2 +1,4 @@
-package com.gadministrativa.controller;public class DepartmentsController {
+package com.gadministrativa.controller;
+
+public class DepartmentsController {
 }
