@@ -10,6 +10,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 
 @Entity
+@Table(name = "attendance")
 @EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter

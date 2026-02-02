@@ -4,8 +4,10 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import java.util.Set;
 
 @Entity
+@Table(name = "departments")
 @EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
@@ -21,9 +23,12 @@ public class Department {
     @NotNull
     private String name;
 
-    @ManyToOne(optional = false) // Never NOT NULL
-    @JoinColumn(name = "client_id") // Name of the column and reference to Client table by type.
-    private Client clientId;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "client_id")
+    private Client client;
+
+    @OneToMany(mappedBy = "department")
+    private Set<Employee> employees;
 
     @Column(nullable = false)
     @NotNull

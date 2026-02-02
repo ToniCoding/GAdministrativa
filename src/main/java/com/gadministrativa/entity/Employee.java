@@ -8,6 +8,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "employees")
 @EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
@@ -37,5 +38,5 @@ public class Employee {
 
     @ManyToOne(optional = false) // Must have always a value, never NOT NULL.
     @JoinColumn(name = "department_id")
-    private Department departmentId;
+    private Department department;
 }

@@ -6,6 +6,7 @@ import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
+@Table(name = "employee_roles")
 @EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
@@ -13,11 +14,17 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @NoArgsConstructor
 @Builder
 public class EmployeeRole {
-    @JoinColumn(name = "employee_id")
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "employee_id", nullable = false)
     @NotNull
     private Employee employee;
 
-    @JoinColumn(name = "role_id")
+    @ManyToOne
+    @JoinColumn(name = "role_id", nullable = false)
     @NotNull
     private Role role;
 }

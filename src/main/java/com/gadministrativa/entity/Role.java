@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 @Entity
+@Table(name = "roles")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -13,13 +14,13 @@ import lombok.*;
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long roleId;
+    private Long id;
 
-    @Column(nullable = false)
+    @Column(name = "role_name", nullable = false)
     @NotNull
     private String roleName;
 
-    @Column(nullable = false)
+    @Column(name = "role_description", nullable = false)
     @NotNull
     private String roleDescription;
 }
