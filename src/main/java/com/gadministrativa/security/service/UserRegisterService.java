@@ -20,7 +20,7 @@ public class UserRegisterService {
 
     public User registerUser(RegisterRequest registerRequest) {
         if (userRepository.existsByEmail(registerRequest.getEmail())) {
-            throw new EmailAlreadyExistsException("Email ya registrado");
+            throw new EmailAlreadyExistsException(registerRequest.getEmail());
         }
 
         User user = new User();
