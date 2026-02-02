@@ -2,6 +2,7 @@ package com.gadministrativa.service;
 
 import com.gadministrativa.dto.EmployeeRequestDTO;
 import com.gadministrativa.entity.Employee;
+import com.gadministrativa.exception.EmployeeDoesNotExist;
 import com.gadministrativa.repository.EmployeeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,5 +23,15 @@ public class EmployeeService {
         newEmployee.setDepartment(null);
 
         return employeeRepository.save(newEmployee);
+    }
+
+    public Employee getEmployee(Long id) {
+        Employee employee =  employeeRepository.findEmployeeById(id);
+
+        if (employee == null) {
+            throw new EmployeeDoesNotExist(id);
+        }
+
+        return employee;
     }
 }
