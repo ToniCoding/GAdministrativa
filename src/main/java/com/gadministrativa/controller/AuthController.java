@@ -1,9 +1,10 @@
-// AuthController.java - VERSIÓN CORRECTA
-package com.gadministrativa.controller;  // ← DEBE estar en controller
+package com.gadministrativa.controller;
 
 import com.gadministrativa.security.dto.LoginRequest;
+import com.gadministrativa.security.dto.RegisterRequest;
+import com.gadministrativa.security.entity.User;
 import com.gadministrativa.security.service.JwtService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -11,18 +12,35 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import com.gadministrativa.security.service.UserRegisterService;
 
 import java.util.Map;
 
 @RestController
 @RequestMapping("/auth")
+@RequiredArgsConstructor
 public class AuthController {
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
+    private final JwtService jwtService;
+    private final UserRegisterService userRegisterService;
 
-    @Autowired
-    private JwtService jwtService;
+    /**
+     * Registers a new user in DB.
+     * @param registerRequest Body of the request received.
+     * @return 201CREATED or 500 if any exception is thrown.
+     */
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@RequestBody RegisterRequest registerRequest) {
+        try {
+            User user = userRegisterService.registerUser(registerRequest);
+
+            return ResponseEntity.status(HttpStatus.CREATED).body(user);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("error", "Error interno"));
+        }
+    }
 
     /**
      * Receives the login request body and pass it to the authentication manager verifying it.
