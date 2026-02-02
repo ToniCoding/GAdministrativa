@@ -36,7 +36,7 @@ public class Employee {
     @Column(columnDefinition = "TIMESTAMP DEFAULT NULL")
     private LocalDateTime endDate;
 
-    @ManyToOne(optional = false) // Must have always a value, never NOT NULL.
     @JoinColumn(name = "department_id")
+    @ManyToOne
     private Department department;
 }
