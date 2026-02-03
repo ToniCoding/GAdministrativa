@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/employee")
 @RequiredArgsConstructor
@@ -22,6 +24,12 @@ public class EmployeeController {
     @GetMapping("{id}")
     public ResponseEntity<?> checkEmployee(@PathVariable Long id) {
         return ResponseEntity.status(HttpStatus.OK)
-                    .body(employeeService.getEmployee(id));
+               .body(employeeService.getEmployee(id));
+    }
+
+    @PatchMapping("/modify")
+    public ResponseEntity<?> modifyEmployee(@RequestParam Long id, @RequestBody Map<String, Object> changes) {
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(employeeService.modifyEmployee(id, changes));
     }
 }
