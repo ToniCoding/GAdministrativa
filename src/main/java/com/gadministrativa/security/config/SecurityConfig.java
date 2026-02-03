@@ -35,9 +35,9 @@ public class SecurityConfig {
      * Configuration class.
      * Disables the CSRF, declares that the exceptions will be managed through jwtEntryPoint,
      * makes the session STATELESS, declares public endpoints,
-     * @param http
-     * @return
-     * @throws Exception
+     * @param http Configuration for HTTP.
+     * @return The built HTTP configuration.
+     * @throws Exception Thrown if bad credentials or JWT problem.
      */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {

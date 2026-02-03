@@ -2,13 +2,11 @@ package com.gadministrativa.controller;
 
 import com.gadministrativa.security.dto.LoginRequest;
 import com.gadministrativa.security.dto.RegisterRequest;
-import com.gadministrativa.security.entity.User;
 import com.gadministrativa.security.service.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
